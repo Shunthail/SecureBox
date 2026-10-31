@@ -1,0 +1,58 @@
+{
+  "name": "app/securebox",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.2",
+    "ext-ctype": "*",
+    "ext-fileinfo": "*",
+    "ext-mbstring": "*",
+    "ext-openssl": "*",
+    "ext-pdo": "*",
+    "ext-pdo_sqlite": "*",
+    "symfony/console": "^7.4",
+    "symfony/dotenv": "^7.4",
+    "symfony/framework-bundle": "^7.4",
+    "symfony/rate-limiter": "^7.4",
+    "symfony/runtime": "^7.4",
+    "symfony/security-csrf": "^7.4",
+    "symfony/twig-bundle": "^7.4",
+    "symfony/yaml": "^7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "symfony/runtime": true
+    },
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2.30"
+    }
+  },
+  "scripts": {
+    "setup": "@php bin/setup.php",
+    "start": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php -d upload_max_filesize=50M -d post_max_size=52M -d memory_limit=256M -S 127.0.0.1:3030 -t public public/router.php"
+    ],
+    "test": "phpunit",
+    "check": [
+      "@php bin/console lint:container",
+      "@php bin/console lint:twig templates",
+      "@php bin/console lint:yaml config"
+    ]
+  },
+  "description": "Temporary encrypted file transfers with password protection and browser-local history."
+}

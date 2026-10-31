@@ -1,0 +1,23 @@
+framework:
+  secret: '%env(APP_SECRET)%'
+  csrf_protection: true
+  session:
+    cookie_secure: auto
+    cookie_httponly: true
+    cookie_samesite: lax
+    save_path: '%kernel.project_dir%/var/sessions'
+  http_method_override: false
+  handle_all_throwables: true
+  php_errors:
+    log: true
+  cache:
+    app: cache.adapter.filesystem
+  rate_limiter:
+    uploads:
+      policy: fixed_window
+      limit: 10
+      interval: '1 minute'
+    downloads:
+      policy: fixed_window
+      limit: 10
+      interval: '1 minute'

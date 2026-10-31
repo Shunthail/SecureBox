@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block navigation %}
+<nav aria-label="Navigation"><button id="show-send" class="nav-button active" type="button">Envoyer</button><button id="show-history" class="nav-button" type="button">Mes envois <span id="history-count">0</span></button></nav>
+{% endblock %}
+{% block body %}
+<main id="sender">
+  <section id="send-view">
+    <div class="intro"><h1>Un petit colis ?</h1><p class="intro-text">Choisis un fichier, donne-lui une durée, et fais tourner le lien.</p></div>
+    <form id="transfer-form">
+      <div class="send-grid">
+        <section class="upload-panel"><div class="panel-label"><span>01</span> LE FICHIER</div>
+          <div class="drop-zone" id="drop-zone"><input type="file" id="file" name="file" hidden><svg class="file-drawing" viewBox="0 0 100 110" aria-hidden="true"><path d="M22 5h38l22 22v73H22zM60 5v24h22"/><path d="M37 66h30M52 80V44m-12 12 12-12 12 12"/></svg><h2 id="file-heading">Le fichier va ici.</h2><p id="file-description">Glisse-le dans la boîte ou utilise le bouton.</p><button class="button outline" id="choose-file" type="button">Parcourir…</button><button class="small-link" id="clear-file" type="button" hidden>Changer de fichier</button></div>
+          <div class="upload-limits"><span>50 Mo maximum</span><span>Un fichier par lien</span><span>Tous formats</span></div>
+        </section>
+        <section class="settings-panel"><div class="panel-label"><span>02</span> LES RÉGLAGES</div>
+          <label class="field-label" for="hours">Disponible pendant</label><div class="hours-field"><input id="hours" name="hours" type="number" min="1" max="168" value="24" required><span>heures</span></div><div class="duration-buttons"><button type="button" data-hours="1">1 h</button><button type="button" data-hours="24" class="selected">24 h</button><button type="button" data-hours="72">3 jours</button><button type="button" data-hours="168">7 jours</button></div>
+          <p class="field-note">Entre 1 heure et 7 jours. Le fichier est inaccessible une fois le délai écoulé.</p>
+          <div class="password-setting"><label class="toggle-label"><input id="protect" type="checkbox"><span>Ajouter un mot de passe</span></label><div id="password-fields" hidden><label class="sr-only" for="password">Mot de passe du transfert</label><div class="password-field"><input id="password" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="64" placeholder="8 caractères minimum" disabled><button type="button" id="toggle-password">Voir</button></div><p class="field-note">À transmettre séparément du lien.</p></div></div>
+          <button class="button primary" id="submit-transfer" type="submit" disabled>Créer le lien <span>↗</span></button><div id="upload-progress" hidden><progress id="progress" max="100" value="0"></progress><p id="progress-label" role="status">Envoi en cours…</p></div>
+        </section>
+      </div>
+    </form>
+    <section id="result" class="result" hidden aria-live="polite"><div class="result-top"><span class="done-mark">✓</span><div><p class="eyebrow">ENVOI TERMINÉ</p><h2>Le lien est prêt.</h2></div><button id="new-transfer" type="button" class="small-link">Un autre fichier ↗</button></div><p id="result-file" class="result-file"></p><div class="share-row"><label for="share-url" class="sr-only">Lien de partage</label><input id="share-url" readonly><button class="button primary" id="copy-result" type="button">Copier le lien</button></div><p id="result-details"></p><p class="field-note">Le mot de passe, si présent, ne figure pas dans le lien. Ton historique est conservé sur ce navigateur.</p></section>
+    <div class="bottom-line"><span>Déposer</span><i>→</i><span>Régler</span><i>→</i><span>Partager</span><p>Le fichier est chiffré sur le serveur avant son stockage.</p></div>
+  </section>
+  <section id="history-view" hidden><div class="history-heading"><div><p class="eyebrow">SUR CE NAVIGATEUR</p><h1>Mes envois<span>.</span></h1><p class="intro-text">Retrouve tes liens et coupe l’accès quand tu veux.</p></div><button class="button outline" id="refresh-history" type="button">Actualiser ↻</button></div><p class="history-note">Cet historique reste ici. Effacer les données du navigateur le supprime, mais ne révoque pas les liens encore actifs.</p><div id="history-list"></div><div id="history-empty" class="empty-history"><span>↥</span><h2>Rien d’envoyé pour le moment.</h2><p>Ton prochain transfert apparaîtra ici.</p></div></section>
+</main>
+<template id="history-row"><article class="history-item"><div class="history-file"><span class="file-badge">↗</span><div><h2></h2><p class="history-meta"></p></div></div><span class="history-state"></span><span class="history-downloads"></span><div class="history-actions"><button class="small-link copy-link" type="button">Copier le lien</button><button class="small-link revoke-link" type="button">Révoquer</button><button class="small-link forget-link" type="button">Oublier</button></div></article></template>
+{% endblock %}

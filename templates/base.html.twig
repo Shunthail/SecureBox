@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="csrf-token" content="{{ csrf }}">
+  <meta name="description" content="Transferts de fichiers temporaires, chiffrés au repos et protégés par mot de passe.">
+  <title>{% block title %}SecureBox — Envoi de fichiers{% endblock %}</title>
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a class="brand" href="/" aria-label="SecureBox, accueil"><span class="brand-icon">↥</span>Secure<span>Box</span></a>
+      {% block navigation %}<a class="back-link" href="/">Envoyer un fichier ↗</a>{% endblock %}
+    </header>
+    <div id="notice" class="notice" role="alert" hidden></div>
+    {% block body %}{% endblock %}
+    <footer><span>Fichiers temporaires</span><span>Chiffrement au repos · Sans compte</span></footer>
+  </div>
+</body>
+</html>

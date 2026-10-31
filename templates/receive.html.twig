@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}SecureBox — Récupérer un fichier{% endblock %}
+{% block body %}
+<main class="receive-shell">
+{% if transfer %}
+<p class="eyebrow">UN FICHIER T’ATTEND</p><h1>À toi de jouer<span>.</span></h1><section class="receive-card"><span class="receive-arrow">↓</span><h2>{{ transfer.protected ? 'Fichier protégé' : transfer.filename }}</h2><p>{% if not transfer.protected %}{{ (transfer.size / 1024)|number_format(1, ',', ' ') }} Ko · {% endif %}Disponible jusqu’au <time datetime="{{ transfer.expiresAt }}">{{ transfer.expiresAt|date('d/m/Y à H:i', 'Europe/Paris') }}</time></p><form id="download-form" data-token="{{ token }}">{% if transfer.protected %}<label class="field-label" for="download-password">Mot de passe</label><input class="download-password" id="download-password" name="password" type="password" autocomplete="current-password" maxlength="64" required><p class="field-note">Demande-le à la personne qui t’a envoyé le lien.</p>{% endif %}<button class="button primary" id="download-button" type="submit">Télécharger le fichier <span>↓</span></button><p id="download-status" role="status"></p></form><p class="receive-note">Le téléchargement ne repousse pas la date d’expiration.</p></section>
+{% else %}
+<p class="eyebrow">TRANSFERT INDISPONIBLE</p><h1>C’est terminé<span>.</span></h1><section class="receive-card"><span class="receive-arrow">×</span><h2>Ce lien n’est plus disponible.</h2><p>Le transfert a expiré, a été révoqué ou n’existe pas.</p><a href="/" class="button primary">Envoyer un fichier <span>↗</span></a></section>
+{% endif %}
+</main>
+{% endblock %}

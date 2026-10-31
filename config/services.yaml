@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    bind:
+      $storagePath: '%kernel.project_dir%/var/storage'
+      $appUrl: '%env(APP_URL)%'
+      $appSecret: '%env(APP_SECRET)%'
+  App\:
+    resource: '../src/'
+    exclude: '../src/Kernel.php'
